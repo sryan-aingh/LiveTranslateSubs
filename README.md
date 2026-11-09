@@ -1,64 +1,79 @@
 # LiveTranslateSubs 🎙️🌍
 
-LiveTranslateSubs is a professional-grade, real-time speech translation system designed for low-latency subtitle generation. It features an adaptive AI engine that automatically scales its performance based on available hardware, ensuring smooth operation on everything from low-end CPUs to high-performance CUDA GPUs.
+LiveTranslateSubs is a real-time speech translation system designed for low-latency subtitle generation. It captures live audio, converts speech into text, translates it into English, and displays subtitles in real time.
 
 ## 🚀 Key Features
 
-- **Adaptive AI Engine**: Automatically detects system RAM and GPU to select the best Whisper model (`base` as default, `small`/`medium` for GPU, or `tiny` for ultra Low-end).
-- **Real-Time Streaming**: Low-latency audio streaming from the browser using Web Audio API and WebSockets.
-- **Speech-to-Text Translation**: High-accuracy transcription via `faster-whisper` followed by specialized text translation.
-- **Subtitle Stabilization**: Advanced buffering and stabilization logic to reduce flickering and hallucinations.
-- **Hardware Agnostic**: Fully compatible with 4GB RAM CPU-only systems while leveraging NVIDIA GPUs when available.
+- **Real-Time Speech Recognition**: Captures live audio and transcribes speech continuously.
+- **Multi-Language Translation**: Translates spoken languages into English.
+- **Live Subtitles**: Displays translated subtitles with minimal delay.
+- **AI-Powered Transcription**: Uses Faster-Whisper for efficient and accurate speech recognition.
+- **Audio Processing**: Processes incoming audio streams for continuous transcription.
+- **User-Friendly Interface**: Provides an accessible interface for viewing live translated subtitles.
 
 ## 🏗️ System Architecture
 
-```mermaid
-graph TD
-    A[Browser Mic] -->|Web Audio API| B[WebSocket Stream]
-    B -->|Audio Chunks| C[Backend Audio Buffer]
-    C -->|Accumulated Audio| D[Whisper Transcription]
-    D -->|Text| E[Translation Engine]
-    E -->|Translated Text| F[Subtitle Stabilizer]
-    F -->|Stabilized Subs| G[Frontend Display]
-```
+The application follows a modular architecture consisting of:
 
-## ⚙️ Hardware Adaptive Logic
+- **Frontend**: Handles audio input and displays translated subtitles.
+- **Backend**: Processes incoming audio and manages transcription requests.
+- **Speech Recognition**: Uses Faster-Whisper to convert speech into text.
+- **Translation Engine**: Translates recognized speech into English.
+- **Real-Time Communication**: Uses WebSockets for continuous audio and subtitle streaming.
 
-| System Tier | Hardware Specs | Model Selected | Device |
-|-------------|----------------|----------------|--------|
-| **Baseline** | >= 4GB RAM, No GPU | `base` | CPU |
-| **Low-End** | < 4GB RAM, No GPU | `tiny` | CPU |
-| **High-End** | NVIDIA GPU Detected | `small` / `medium` | CUDA |
+## 🛠️ Tech Stack
 
-## 🛠️ Installation & Setup
+| Technology | Purpose |
+|---|---|
+| Python | Backend development |
+| Faster-Whisper | Speech recognition |
+| Flask | Web application framework |
+| WebSockets | Real-time communication |
+| JavaScript | Frontend logic |
+| HTML & CSS | User interface |
+| Web Audio API | Live audio capture |
 
-1. **Clone the repository**:
+## ⚙️ Installation & Setup
+
+1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/avy2025/LiveTranslateSubs.git
    cd LiveTranslateSubs
    ```
 
-2. **Install Dependencies**:
+2. **Install dependencies:**
+
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Run the Application**:
+3. **Run the application:**
+
    ```bash
    python main.py
    ```
-   *Note: I will create a entry points main.py that calls backend/server.py*
 
-4. **Access UI**:
-   Open `http://127.0.0.1:5000` in your browser.
+4. **Access the application:**
 
-## 🐳 Docker Deployment
+   Open your browser and navigate to:
 
-Build and run using Docker:
-```bash
-docker build -t live-translate-subs .
-docker run -p 5000:5000 live-translate-subs
-```
+   ```text
+   http://127.0.0.1:5000
+   ```
+
+## 💻 How It Works
+
+1. The application captures live microphone audio through the browser.
+2. Audio is streamed to the backend in real time.
+3. Faster-Whisper processes the incoming audio and generates transcriptions.
+4. The recognized speech is translated into English.
+5. Translated subtitles are streamed back to the browser and displayed in real time.
+
+## 🎯 Project Objective
+
+The goal of LiveTranslateSubs is to make real-time communication more accessible by eliminating language barriers through live speech recognition and translation.
 
 ---
-Developed as a high-performance modular system for real-time live translation.
+
+**Developed as a real-time AI-powered speech translation and subtitle generation system.**
